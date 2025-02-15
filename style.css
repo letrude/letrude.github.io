@@ -88,7 +88,7 @@ h2 {
 }
 
 article div {
-    padding: 117px;
+    padding: 0 117px 0 117px;
 }
 
 article p {
@@ -409,5 +409,100 @@ article p {
     100% {
         opacity: 1;
         transform: none;
+    }
+}
+
+@media (max-width: 1600px) {
+    #title h1 {
+        font-size: 33px;
+    }
+
+    #title p {
+        font-size: 17px;
+    }
+
+    #the_button {
+        font-size: 1rem;
+        height: 3rem;
+        line-height: 3rem;
+        padding: 5px 70px 5px 20px;
+    }
+
+    footer {
+        align-items: flex-start;
+    }
+
+    #foot-text {
+        width: 100%;
+        text-align: center;
+    }
+
+    #pc {
+        width: 600px;
+    }
+
+    #photo {
+        width: 472px;
+        margin-left: 64px;
+        margin-top: 20px;
+    }
+
+    #gradiant {
+        width: 472px;
+        height: 266.078px;
+        margin-left: 64px;
+        margin-top: 20px;
+    }
+
+    #soluce {
+        width: 600px;
+    }
+
+    article div {
+        padding: 0 60px 0 60px;
+    }
+
+    .image_left {
+        width: 480px;
+        height: 480px;
+    }
+
+    .image_right {
+        width: 480px;
+        height: 480px;
+    }
+
+    .gradiant_left {
+        width: 480px;
+        height: 480px;
+    }
+
+    .gradiant_right {
+        width: 480px;
+        height: 480px;
+    }
+
+    #first_frame {
+        height: 550px;
+    }
+
+    #second_frame {
+        height: 600px;
+    }
+
+    #third_frame {
+        height: 550px;
+    }
+
+    #rate_div p {
+        max-width: 85%;
+    }
+
+    .progress-bar {
+        width: 80%;
+    }
+
+    .rating {
+        margin: 50px 0 50px 160px;
     }
 }
