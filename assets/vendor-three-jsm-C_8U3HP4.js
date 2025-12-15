@@ -1,0 +1,1 @@
+import{w as t,Q as r,_ as e}from"./vendor-three-core-Be6rz_8P.js";new t(-1,1,1,-1,0,1);class s extends r{constructor(){super(),this.setAttribute("position",new e([-1,3,0,-1,-1,0,3,-1,0],3)),this.setAttribute("uv",new e([0,2,0,0,2,0],2))}}new s;
