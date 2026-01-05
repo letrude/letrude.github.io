@@ -108,7 +108,7 @@ function ClassicPortfolio() {
       onWheel={handleGlobalWheel}
       style={{
         width: "100vw",
-        height: "100vh",
+        height: "100dvh",
         background: theme.bg,
         color: theme.text,
         fontFamily: "'Inter', sans-serif",
