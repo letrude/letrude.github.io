@@ -156,7 +156,7 @@ function MainMenu() {
     return () => window.removeEventListener("resize", checkDevice);
   }, []);
 
-  const shouldDisable3D = isTouchDevice || isMobile;
+  const shouldDisable3D = isTouchDevice || window.innerWidth < 900;
 
   const theme = {
     bg: isDarkMode ? "#050505" : "#eef2ff",
