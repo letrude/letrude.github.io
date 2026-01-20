@@ -269,7 +269,7 @@ function ClassicPortfolio() {
           transition={{ duration: 0.8 }}
           style={{
             width: "90%",
-            maxWidth: "1000px",
+            maxWidth: "950px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -277,7 +277,7 @@ function ClassicPortfolio() {
             padding: "20px",
             background: theme.navBg,
             backdropFilter: "blur(10px)",
-            gap: "20px",
+            gap: "10px",
             borderRadius: "20px",
             border: `1px solid ${theme.cardBorder}`,
             boxShadow: theme.shadow,
@@ -294,6 +294,7 @@ function ClassicPortfolio() {
               alignItems: "center",
               gap: "10px",
               color: theme.text,
+              width: "150px",
             }}
           >
             <div
