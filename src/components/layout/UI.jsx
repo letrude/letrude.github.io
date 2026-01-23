@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import useStore from "../../store/useStore";
 import { motion, AnimatePresence } from "framer-motion";
 import LanguageSwitchButton from "../common/LanguageSwitchButton";

@@ -50,7 +50,7 @@ const translations = {
           {
             type: "text",
             content:
-              "🎯 Mon Objectif\n\nJe suis à la recherche d'un stage du 6 avril 2026 au 18 Juin 2026, dans la création et le développement de sites web ou d'applications.\n\nMon but est de devenir un développeur compétent capable de trouver des solutions performantes et adaptées.",
+              "🎯 Mon Objectif\n\nJe suis à la recherche d'un stage de 10 semaines à partir du 6 avril 2026, dans la création et le développement de sites web ou d'applications.\n\nMon but est de devenir un développeur compétent capable de trouver des solutions performantes et adaptées.",
           },
         ],
       },
@@ -272,7 +272,7 @@ const translations = {
           {
             type: "text",
             content:
-              "🎯 My Goal\n\nI am looking for an internship from April 6, 2026, to June 18, 2026, in web or application creation and development.\n\nMy goal is to become a competent developer capable of finding efficient and adapted solutions.",
+              "🎯 My Goal\n\nI am looking for a 10-week internship starting on 6 April 2026, in web or application creation and development.\n\nMy goal is to become a competent developer capable of finding efficient and adapted solutions.",
           },
         ],
       },

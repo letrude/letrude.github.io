@@ -1,5 +1,3 @@
-import React from "react";
-
 const KeyCap = ({ label, width = "auto" }) => (
   <span
     style={{

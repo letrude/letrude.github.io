@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useThree } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
 import useStore from "../../store/useStore";

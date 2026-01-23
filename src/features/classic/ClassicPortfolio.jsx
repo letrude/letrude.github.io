@@ -1,4 +1,4 @@
-import React, { useState, Suspense, useRef, useEffect } from "react";
+import { useState, Suspense, useRef, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Stars, Grid } from "@react-three/drei";
 import useStore from "../../store/useStore";
@@ -31,15 +31,7 @@ const StaticGrid = () => (
 );
 
 function ClassicPortfolio() {
-  const {
-    content,
-    setViewMode,
-    isDarkMode,
-    toggleTheme,
-    language,
-    toggleLanguage,
-    uiText,
-  } = useStore();
+  const { content, setViewMode, isDarkMode, toggleTheme, uiText } = useStore();
   const [activeTab, setActiveTab] = useState("Propos");
   const scrollContainerRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);

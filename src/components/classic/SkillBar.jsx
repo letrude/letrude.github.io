@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 
 const SkillBar = ({ name, level, theme }) => (

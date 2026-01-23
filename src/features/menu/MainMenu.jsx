@@ -1,7 +1,7 @@
-import React, { useRef, useMemo, Suspense, useState, useEffect } from "react";
+import { useRef, useMemo, Suspense, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars, Grid, Float } from "@react-three/drei";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Object3D, AdditiveBlending } from "three";
 import useStore from "../../store/useStore";
 import useIsMobile from "../../hooks/useIsMobile";

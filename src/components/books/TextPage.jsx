@@ -1,5 +1,3 @@
-import React from "react";
-
 const TextPage = ({ content }) => (
   <div
     style={{

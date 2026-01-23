@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useProgress } from "@react-three/drei";
 import { motion, AnimatePresence } from "framer-motion";
 import useStore from "../../store/useStore";
