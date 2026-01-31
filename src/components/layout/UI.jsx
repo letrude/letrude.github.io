@@ -545,7 +545,7 @@ function UI() {
               }}
             >
               <span>{uiText.enter}</span>
-              <KeyCap label="ESPACE" width="60px" />
+              <KeyCap label={uiText.space} width="60px" />
             </div>
           </motion.div>
         )}

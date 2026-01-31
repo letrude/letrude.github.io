@@ -157,7 +157,7 @@ const Zone = ({
             {label}
           </Text>
         </Float>
-        {isActive && (
+        <group visible={isActive}>
           <Float speed={10} rotationIntensity={0} floatIntensity={0.5}>
             <Text
               position={[textOffset, 2.2, 0.3]}
@@ -169,7 +169,7 @@ const Zone = ({
               ▼
             </Text>
           </Float>
-        )}
+        </group>
       </group>
 
       <mesh
