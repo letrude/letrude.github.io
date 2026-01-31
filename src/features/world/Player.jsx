@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo, useEffect } from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { Vector3, Object3D, MathUtils } from "three";
@@ -22,18 +22,15 @@ const PlayerController = () => {
 
   const { scene: visualScene } = useGLTF(`${BASE_URL}character/skin.glb`);
   const { animations: walkAnims } = useGLTF(
-    `${BASE_URL}character/animations.glb`
+    `${BASE_URL}character/animations.glb`,
   );
   const { animations: idleAnims } = useGLTF(`${BASE_URL}character/idle.glb`);
 
   const animations = useMemo(
     () => [...idleAnims, ...walkAnims],
-    [idleAnims, walkAnims]
+    [idleAnims, walkAnims],
   );
-  const clone = React.useMemo(
-    () => SkeletonUtils.clone(visualScene),
-    [visualScene]
-  );
+  const clone = useMemo(() => SkeletonUtils.clone(visualScene), [visualScene]);
   const { actions } = useAnimations(animations, playerRef);
 
   const currentZone = useStore((state) => state.currentZone);
@@ -103,12 +100,12 @@ const PlayerController = () => {
       spawnState.current.scale = MathUtils.lerp(
         spawnState.current.scale,
         1.1,
-        safeDelta * 3
+        safeDelta * 3,
       );
       spawnState.current.y = MathUtils.lerp(
         spawnState.current.y,
         0,
-        safeDelta * 3
+        safeDelta * 3,
       );
 
       if (spawnState.current.y < 0) spawnState.current.y = 0;
@@ -194,13 +191,13 @@ const PlayerController = () => {
       targetPos.set(
         playerRef.current.position.x,
         20,
-        playerRef.current.position.z + 30
+        playerRef.current.position.z + 30,
       );
 
       targetLookAt.set(
         playerRef.current.position.x,
         0,
-        playerRef.current.position.z
+        playerRef.current.position.z,
       );
 
       targetZoom = 40;

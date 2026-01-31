@@ -17,7 +17,10 @@ const SceneWarmup = () => {
       setSceneReady(true);
     }, 100);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      setSceneReady(false);
+    };
   }, [gl, scene, camera, setSceneReady]);
 
   return null;

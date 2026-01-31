@@ -1,11 +1,11 @@
 import { Suspense, lazy, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import useStore from "./store/useStore";
-import UI from "./components/layout/UI";
 import LoadingScreen from "./components/layout/LoadingScreen";
+const LazyUI = lazy(() => import("./components/layout/UI"));
 const LazyMainMenu = lazy(() => import("./features/menu/MainMenu"));
-const LazyClassicPortfolio = lazy(() =>
-  import("./features/classic/ClassicPortfolio")
+const LazyClassicPortfolio = lazy(
+  () => import("./features/classic/ClassicPortfolio"),
 );
 const LazyGameScene = lazy(() => import("./features/world/GameScene"));
 
@@ -27,11 +27,10 @@ const InitialLoadingFallback = () => {
         zIndex: 999,
       }}
     >
-      {menuText.loading}
+      {menuText.loading || "Loading application..."}
     </div>
   );
 };
-
 
 export default function App() {
   const viewMode = useStore((state) => state.viewMode);
@@ -48,23 +47,32 @@ export default function App() {
         height: "100vh",
         background: viewMode === "3d" ? "#aaddff" : "none",
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <Suspense fallback={<InitialLoadingFallback />}>
-        {viewMode === "menu" && <LazyMainMenu />}
-        {viewMode === "2d" && <LazyClassicPortfolio />}
-        {viewMode === "3d" && (
-          <>
-            <LoadingScreen />
-            <Canvas shadows dpr={[1, 2]}>
-              <Suspense fallback={null}>
-                <LazyGameScene />
-              </Suspense>
-            </Canvas>
-            <UI />
-          </>
-        )}
-      </Suspense>
+      {viewMode === "menu" && (
+        <Suspense fallback={<InitialLoadingFallback />}>
+          <LazyMainMenu />
+        </Suspense>
+      )}
+      {viewMode === "2d" && (
+        <Suspense fallback={<InitialLoadingFallback />}>
+          <LazyClassicPortfolio />
+        </Suspense>
+      )}
+      {viewMode === "3d" && (
+        <>
+          <LoadingScreen />
+          <Canvas shadows dpr={[1, 2]}>
+            <Suspense fallback={null}>
+              <LazyGameScene />
+            </Suspense>
+          </Canvas>
+          <Suspense fallback={null}>
+            <LazyUI />
+          </Suspense>
+        </>
+      )}
     </div>
   );
 }

@@ -64,7 +64,7 @@ const translations = {
             tech: "React / Three.js / R3F / Framer Motion",
             desc: "Développement d'un portfolio bimodal offrant une expérience interactive en 3D et une version classique et épurée (2D), garantissant accessibilité, fluidité et originalité.",
             details:
-              "Projet personnel mené sur 90 heures, centré sur l'optimisation de l'expérience utilisateur (UX) et des performances. J'ai consacré une phase d'étude et d'analyse approfondie, documentant chaque détail et recherchant les meilleures pratiques pour garantir un rendu fluide et agréable, notamment l'intégration du 3D temps réel (R3F) et la finesse des animations (Framer Motion). Ce travail démontre ma rigueur dans la conception d'interfaces avancées.",
+              "Projet personnel mené sur 95 heures, centré sur l'optimisation de l'expérience utilisateur (UX) et des performances. J'ai consacré une phase d'étude et d'analyse approfondie, documentant chaque détail et recherchant les meilleures pratiques pour garantir un rendu fluide et agréable, notamment l'intégration du 3D temps réel (R3F) et la finesse des animations (Framer Motion). Ce travail démontre ma rigueur dans la conception d'interfaces avancées.",
             link: "https://github.com/letrude/letrude.github.io",
           },
           {
@@ -287,7 +287,7 @@ const translations = {
             tech: "React / Three.js / R3F / Framer Motion",
             desc: "Development of a dual-mode portfolio, offering both an interactive 3D experience and a clean, classic 2D version, ensuring accessibility, fluidity, and originality.",
             details:
-              "Personal project spanning 90 hours, focused on optimizing user experience (UX) and performance. I conducted an in-depth study and analysis phase, documenting every detail and researching best practices to ensure smooth, pleasant rendering, notably the integration of real-time 3D (R3F) and the subtlety of animations (Framer Motion). This work showcases my rigor in designing advanced interfaces.",
+              "Personal project spanning 95 hours, focused on optimizing user experience (UX) and performance. I conducted an in-depth study and analysis phase, documenting every detail and researching best practices to ensure smooth, pleasant rendering, notably the integration of real-time 3D (R3F) and the subtlety of animations (Framer Motion). This work showcases my rigor in designing advanced interfaces.",
             link: "https://github.com/letrude/letrude.github.io",
           },
           {
