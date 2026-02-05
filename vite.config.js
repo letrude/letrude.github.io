@@ -5,4 +5,14 @@ import viteCompression from "vite-plugin-compression";
 export default defineConfig({
   plugins: [react(), viteCompression()],
   base: "/",
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "react-vendor": ["react", "react-dom", "zustand"],
+          "three-core": ["three"],
+        },
+      },
+    },
+  },
 });
