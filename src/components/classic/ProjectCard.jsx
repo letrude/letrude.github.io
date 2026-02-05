@@ -1,11 +1,11 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import useStore from "../../store/useStore";
 
 const ProjectCard = ({ data, theme }) => {
   const uiText = useStore((state) => state.uiText);
 
   return (
-    <motion.div
+    <m.div
       initial={{
         backgroundColor: theme.cardBg,
         borderColor: theme.cardBorder,
@@ -86,7 +86,7 @@ const ProjectCard = ({ data, theme }) => {
 
       {data.link && (
         <div style={{ marginTop: "auto" }}>
-          <motion.a
+          <m.a
             href={data.link}
             target="_blank"
             rel="noopener noreferrer"
@@ -119,10 +119,10 @@ const ProjectCard = ({ data, theme }) => {
             }}
           >
             <span>🔗</span> {uiText.viewCode}
-          </motion.a>
+          </m.a>
         </div>
       )}
-    </motion.div>
+    </m.div>
   );
 };
 

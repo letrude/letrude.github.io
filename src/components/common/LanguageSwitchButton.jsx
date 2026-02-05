@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import useStore from "../../store/useStore";
 
 const LanguageSwitchButton = ({ style = {} }) => {
@@ -18,7 +18,7 @@ const LanguageSwitchButton = ({ style = {} }) => {
   };
 
   return (
-    <motion.button
+    <m.button
       onClick={handleClick}
       tabIndex="-1"
       whileHover={{
@@ -50,7 +50,7 @@ const LanguageSwitchButton = ({ style = {} }) => {
       }}
     >
       <AnimatePresence mode="wait" initial={false}>
-        <motion.div
+        <m.div
           key={language}
           initial={{ rotateY: -90, opacity: 0 }}
           animate={{ rotateY: 0, opacity: 1 }}
@@ -78,9 +78,9 @@ const LanguageSwitchButton = ({ style = {} }) => {
           >
             {language === "fr" ? "FR" : "EN"}
           </span>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
-    </motion.button>
+    </m.button>
   );
 };
 

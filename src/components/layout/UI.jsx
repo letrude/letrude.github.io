@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import useStore from "../../store/useStore";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import LanguageSwitchButton from "../common/LanguageSwitchButton";
 import KeyCap from "../common/KeyCap";
 import TextPage from "../books/TextPage";
@@ -195,7 +195,7 @@ function UI() {
           />
         </div>
 
-        <motion.button
+        <m.button
           onClick={(e) => {
             setShowContact(true);
             e.currentTarget.blur();
@@ -223,7 +223,7 @@ function UI() {
         >
           <span style={{ fontSize: "1.2rem" }}>✉️</span>
           {uiText.contact}
-        </motion.button>
+        </m.button>
       </div>
 
       <div
@@ -251,7 +251,7 @@ function UI() {
           ANGE GRIMAUD
         </h1>
 
-        <motion.button
+        <m.button
           whileHover={{
             scale: 1.05,
             backgroundColor: "rgba(255, 255, 255, 0.2)",
@@ -276,9 +276,9 @@ function UI() {
           }}
         >
           <span>📄</span> {uiText.classic}
-        </motion.button>
+        </m.button>
 
-        <motion.button
+        <m.button
           whileHover={{
             scale: 1.05,
             backgroundColor: "rgba(255, 255, 255, 0.2)",
@@ -304,12 +304,12 @@ function UI() {
           }}
         >
           <span>🏠</span> {uiText.backToMenu}
-        </motion.button>
+        </m.button>
       </div>
 
       <AnimatePresence>
         {showContact && contactData && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -329,7 +329,7 @@ function UI() {
             }}
             onClick={() => setShowContact(false)}
           >
-            <motion.div
+            <m.div
               initial={{ scale: 0.8, y: 50 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.8, y: 50 }}
@@ -367,7 +367,7 @@ function UI() {
                   [ECHAP]
                 </span>
 
-                <motion.button
+                <m.button
                   onClick={() => setShowContact(false)}
                   whileHover={{ scale: 1.2, rotate: 90, color: "#a00" }}
                   whileTap={{ scale: 0.9 }}
@@ -387,7 +387,7 @@ function UI() {
                   }}
                 >
                   ×
-                </motion.button>
+                </m.button>
               </div>
 
               <h2
@@ -413,7 +413,7 @@ function UI() {
                 {contactData.pages
                   .filter((p) => p.type === "contact_card")
                   .map((item, i) => (
-                    <motion.a
+                    <m.a
                       key={i}
                       href={item.link}
                       target="_blank"
@@ -436,14 +436,14 @@ function UI() {
                       <span style={{ marginLeft: "10px" }}>
                         {item.title === "Email" ? item.value : item.title}
                       </span>
-                    </motion.a>
+                    </m.a>
                   ))}
               </div>
 
               {contactData.pages
                 .filter((p) => p.type === "cv_download")
                 .map((item, i) => (
-                  <motion.a
+                  <m.a
                     key={i}
                     href="/pdf/CV_Ange_GRIMAUD.pdf"
                     target="_blank"
@@ -469,16 +469,16 @@ function UI() {
                     }}
                   >
                     📜 {item.title}
-                  </motion.a>
+                  </m.a>
                 ))}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       <AnimatePresence>
         {currentZone && !isReadingMode && !showContact && (
-          <motion.div
+          <m.div
             initial={{ y: 50, opacity: 0, x: "-50%" }}
             animate={{ y: 0, opacity: 1, x: "-50%" }}
             exit={{ y: 50, opacity: 0, x: "-50%" }}
@@ -548,13 +548,13 @@ function UI() {
               <span>{uiText.enter}</span>
               <KeyCap label={uiText.space} width="60px" />
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       <AnimatePresence>
         {isReadingMode && activeContent && !showContact && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -573,7 +573,7 @@ function UI() {
               zIndex: 100,
             }}
           >
-            <motion.div
+            <m.div
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               style={{
@@ -617,7 +617,7 @@ function UI() {
                   [ECHAP]
                 </span>
 
-                <motion.button
+                <m.button
                   onClick={() => enableReadingMode(false)}
                   whileHover={{
                     scale: 1.2,
@@ -645,7 +645,7 @@ function UI() {
                   }}
                 >
                   ×
-                </motion.button>
+                </m.button>
               </div>
 
               <div
@@ -692,7 +692,7 @@ function UI() {
                 }}
               >
                 <AnimatePresence mode="wait">
-                  <motion.div
+                  <m.div
                     key={pageIndex}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -708,7 +708,7 @@ function UI() {
                     {currentPageData.type === "skills" && (
                       <SkillsPage data={currentPageData} />
                     )}
-                  </motion.div>
+                  </m.div>
                 </AnimatePresence>
               </div>
 
@@ -723,7 +723,7 @@ function UI() {
                   borderTop: "1px solid rgba(92, 64, 51, 0.3)",
                 }}
               >
-                <motion.button
+                <m.button
                   onClick={() => changePage("prev")}
                   disabled={pageIndex === 0}
                   whileHover={
@@ -749,7 +749,7 @@ function UI() {
                   }}
                 >
                   ◄ {uiText.prev}
-                </motion.button>
+                </m.button>
 
                 <div
                   style={{
@@ -762,7 +762,7 @@ function UI() {
                   {uiText.navHelp}
                 </div>
 
-                <motion.button
+                <m.button
                   onClick={() => changePage("next")}
                   disabled={pageIndex === totalPages - 1}
                   whileHover={
@@ -789,10 +789,10 @@ function UI() {
                   }}
                 >
                   {uiText.next} ►
-                </motion.button>
+                </m.button>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
 

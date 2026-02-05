@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const SkillsPage = ({ data }) => (
   <div>
@@ -43,7 +43,7 @@ const SkillsPage = ({ data }) => (
               overflow: "hidden",
             }}
           >
-            <motion.div
+            <m.div
               initial={{ width: 0 }}
               animate={{ width: `${skill.level}%` }}
               transition={{ duration: 1, delay: 0.2 }}

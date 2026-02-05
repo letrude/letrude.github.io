@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useProgress } from "@react-three/drei";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import useStore from "../../store/useStore";
 
 function LoadingScreen() {
@@ -28,7 +28,7 @@ function LoadingScreen() {
   return (
     <AnimatePresence>
       {!finished && (
-        <motion.div
+        <m.div
           key="loading-screen"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -50,7 +50,7 @@ function LoadingScreen() {
             pointerEvents: "auto",
           }}
         >
-          <motion.h1
+          <m.h1
             animate={{ opacity: [1, 0.5, 1] }}
             transition={{ duration: 1.5, repeat: Infinity }}
             style={{
@@ -64,7 +64,7 @@ function LoadingScreen() {
             }}
           >
             {displayProgress === 100 ? uiText.init : uiText.loading}
-          </motion.h1>
+          </m.h1>
 
           <div
             style={{
@@ -78,7 +78,7 @@ function LoadingScreen() {
               overflow: "hidden",
             }}
           >
-            <motion.div
+            <m.div
               initial={{ width: 0 }}
               animate={{ width: `${displayProgress}%` }}
               transition={{ type: "spring", stiffness: 60, damping: 20 }}
@@ -115,10 +115,10 @@ function LoadingScreen() {
             {displayProgress < 100
               ? uiText.download
               : !isSceneReady
-              ? uiText.compiling
-              : uiText.launching}
+                ? uiText.compiling
+                : uiText.launching}
           </p>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

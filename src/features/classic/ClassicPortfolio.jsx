@@ -2,7 +2,7 @@ import { useState, Suspense, useRef, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Stars, Grid } from "@react-three/drei";
 import useStore from "../../store/useStore";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import LanguageSwitchButton from "../../components/common/LanguageSwitchButton";
 import ThemeSwitch from "../../components/common/ThemeSwitch";
 import ProjectCard from "../../components/classic/ProjectCard";
@@ -165,7 +165,7 @@ function ClassicPortfolio() {
           >
             <LanguageSwitchButton style={{ position: "static" }} />
 
-            <motion.button
+            <m.button
               onClick={() => setViewMode("menu")}
               whileHover={{
                 scale: 1.1,
@@ -195,7 +195,7 @@ function ClassicPortfolio() {
               title="Retour au Menu Principal"
             >
               🏠
-            </motion.button>
+            </m.button>
           </div>
         </>
       )}
@@ -209,7 +209,7 @@ function ClassicPortfolio() {
             zIndex: 200,
           }}
         >
-          <motion.button
+          <m.button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             whileTap={{ scale: 0.9 }}
             style={{
@@ -228,7 +228,7 @@ function ClassicPortfolio() {
             }}
           >
             {isMenuOpen ? "✕" : "☰"}
-          </motion.button>
+          </m.button>
         </div>
       )}
 
@@ -255,7 +255,7 @@ function ClassicPortfolio() {
       </div>
 
       {!isMobile && (
-        <motion.header
+        <m.header
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -303,7 +303,7 @@ function ClassicPortfolio() {
 
           <nav style={{ display: "flex", gap: "5px" }}>
             {tabs.map((tab) => (
-              <motion.button
+              <m.button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 animate={{
@@ -332,7 +332,7 @@ function ClassicPortfolio() {
               >
                 {tab.label}
                 {activeTab === tab.id && (
-                  <motion.div
+                  <m.div
                     layoutId="underline"
                     style={{
                       position: "absolute",
@@ -345,11 +345,11 @@ function ClassicPortfolio() {
                     }}
                   />
                 )}
-              </motion.button>
+              </m.button>
             ))}
           </nav>
 
-          <motion.button
+          <m.button
             onClick={() => {
               if (!isTouch) setViewMode("3d");
             }}
@@ -397,13 +397,13 @@ function ClassicPortfolio() {
             <span>{isTouch ? "⚠️" : "🎮"}</span>
 
             {uiText.experience3d}
-          </motion.button>
-        </motion.header>
+          </m.button>
+        </m.header>
       )}
 
       <AnimatePresence>
         {isMobile && isMenuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -427,7 +427,7 @@ function ClassicPortfolio() {
           >
             <h2 style={{ marginBottom: "20px", color: theme.text }}>Menu</h2>
             {tabs.map((tab) => (
-              <motion.button
+              <m.button
                 key={tab.id}
                 onClick={() => {
                   setActiveTab(tab.id);
@@ -443,10 +443,10 @@ function ClassicPortfolio() {
                 }}
               >
                 {tab.label}
-              </motion.button>
+              </m.button>
             ))}
 
-            <motion.button
+            <m.button
               onClick={() => setViewMode("menu")}
               whileTap={{ scale: 0.9 }}
               style={{
@@ -468,7 +468,7 @@ function ClassicPortfolio() {
               }}
             >
               <span>🏠</span> {uiText.backToMenu}
-            </motion.button>
+            </m.button>
 
             <div
               style={{
@@ -487,7 +487,7 @@ function ClassicPortfolio() {
               />
               <LanguageSwitchButton />
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
@@ -512,7 +512,7 @@ function ClassicPortfolio() {
             }
           }}
         >
-          <motion.div
+          <m.div
             key={activeTab}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -894,7 +894,7 @@ function ClassicPortfolio() {
                   {contact.pages
                     .filter((p) => p.type === "cv_download")
                     .map((p, i) => (
-                      <motion.a
+                      <m.a
                         key={i}
                         href="/pdf/CV_Ange_GRIMAUD.pdf"
                         target="_blank"
@@ -949,12 +949,12 @@ function ClassicPortfolio() {
                             {p.desc}
                           </div>
                         </div>
-                      </motion.a>
+                      </m.a>
                     ))}
                 </div>
               </div>
             )}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
     </div>

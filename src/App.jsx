@@ -1,4 +1,5 @@
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy } from "react";
+import { LazyMotion, domAnimation } from "framer-motion";
 import useStore from "./store/useStore";
 const LazyMainMenu = lazy(() => import("./features/menu/MainMenu"));
 const LazyClassicPortfolio = lazy(
@@ -54,9 +55,11 @@ export default function App() {
         overflow: "hidden",
       }}
     >
-      <Suspense fallback={<InitialLoadingFallback />}>
-        <CurrentView />
-      </Suspense>
+      <LazyMotion features={domAnimation}>
+        <Suspense fallback={<InitialLoadingFallback />}>
+          <CurrentView />
+        </Suspense>
+      </LazyMotion>
     </div>
   );
 }
