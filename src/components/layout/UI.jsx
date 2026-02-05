@@ -54,7 +54,7 @@ function UI() {
         setPageIndex((p) => p + 1);
       if (direction === "prev" && pageIndex > 0) setPageIndex((p) => p - 1);
     },
-    [pageIndex, totalPages, activeContent]
+    [pageIndex, totalPages, activeContent],
   );
 
   const audioRef = useRef(null);
@@ -70,7 +70,7 @@ function UI() {
       playPromise.catch((error) => {
         console.log(
           "Autoplay bloqué par le navigateur, attente d'interaction :",
-          error
+          error,
         );
       });
     }
@@ -107,7 +107,7 @@ function UI() {
           changePage("next");
         if (
           ["KeyA", "KeyW", "KeyZ", "KeyQ", "ArrowLeft", "ArrowUp"].includes(
-            e.code
+            e.code,
           )
         )
           changePage("prev");
@@ -191,6 +191,7 @@ function UI() {
               cursor: "pointer",
               accentColor: "#eecfa1",
             }}
+            onKeyDown={(e) => e.preventDefault()}
           />
         </div>
 

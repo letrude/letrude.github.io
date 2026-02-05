@@ -45,7 +45,7 @@ export default function App() {
   };
   return (
     <div
-      className="custom-cursor"
+      className={viewMode === "3d" ? "custom-cursor" : ""}
       style={{
         width: "100vw",
         height: "100vh",

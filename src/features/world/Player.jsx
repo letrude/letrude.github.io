@@ -205,7 +205,7 @@ const PlayerController = () => {
 
     camera.position.lerp(targetPos, 0.1);
     camera.zoom = MathUtils.lerp(camera.zoom, targetZoom, 0.05);
-    currentLookAt.current.lerp(targetLookAt, 0.1);
+    currentLookAt.current.lerp(targetLookAt, 0.12);
     camera.lookAt(currentLookAt.current);
     camera.updateProjectionMatrix();
   });

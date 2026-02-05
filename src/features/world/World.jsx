@@ -3,7 +3,6 @@ import { Suspense, lazy, useEffect } from "react";
 import LoadingScreen from "../../components/layout/LoadingScreen";
 const LazyUI = lazy(() => import("../../components/layout/UI"));
 const LazyGameScene = lazy(() => import("./GameScene"));
-import "../../styles/world.css";
 
 export default function World() {
   useEffect(() => {
