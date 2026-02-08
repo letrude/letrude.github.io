@@ -1,4 +1,4 @@
-import { m } from "framer-motion";
+import { m as Motion } from "framer-motion";
 
 const ThemeSwitch = ({ isDark, toggle, isMobile = false }) => (
   <div
@@ -15,7 +15,7 @@ const ThemeSwitch = ({ isDark, toggle, isMobile = false }) => (
           }
     }
   >
-    <m.div
+    <Motion.div
       layout
       whileHover={{
         scale: 1.1,
@@ -40,7 +40,7 @@ const ThemeSwitch = ({ isDark, toggle, isMobile = false }) => (
         justifyContent: isDark ? "flex-end" : "flex-start",
       }}
     >
-      <m.div
+      <Motion.div
         layout
         transition={{ type: "spring", stiffness: 700, damping: 30 }}
         style={{
@@ -59,16 +59,16 @@ const ThemeSwitch = ({ isDark, toggle, isMobile = false }) => (
           fontSize: "14px",
         }}
       >
-        <m.span
+        <Motion.span
           key={isDark ? "moon" : "sun"}
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ duration: 0.3 }}
         >
           {isDark ? "🌙" : "☀️"}
-        </m.span>
-      </m.div>
-    </m.div>
+        </Motion.span>
+      </Motion.div>
+    </Motion.div>
   </div>
 );
 

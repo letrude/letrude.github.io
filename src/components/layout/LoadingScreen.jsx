@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useProgress } from "@react-three/drei";
-import { m, AnimatePresence } from "framer-motion";
+import { m as Motion, AnimatePresence } from "framer-motion";
 import useStore from "../../store/useStore";
 
 function LoadingScreen() {
@@ -11,16 +11,42 @@ function LoadingScreen() {
   const [displayProgress, setDisplayProgress] = useState(0);
 
   useEffect(() => {
-    if (progress > displayProgress || progress === 100) {
-      setDisplayProgress(progress);
+    let animationFrameId;
+
+    const animateProgress = () => {
+      setDisplayProgress((prev) => {
+        if (prev >= progress && prev < 100) return prev;
+        if (prev >= 100) return 100;
+
+        const diff = progress - prev;
+        const step = Math.max(0.1, diff * 0.05);
+
+        const nextValue = prev + step;
+
+        if (nextValue > progress - 0.1 && progress < 100) {
+          return progress;
+        }
+
+        return Math.min(nextValue, 100);
+      });
+
+      if (displayProgress < progress && displayProgress < 100) {
+        animationFrameId = requestAnimationFrame(animateProgress);
+      }
+    };
+
+    if (displayProgress < progress) {
+      animationFrameId = requestAnimationFrame(animateProgress);
     }
-  }, [progress, displayProgress]);
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [displayProgress, progress]);
 
   useEffect(() => {
     if (!active && displayProgress === 100 && isSceneReady) {
       const timer = setTimeout(() => {
         setFinished(true);
-      }, 500);
+      }, 100);
       return () => clearTimeout(timer);
     }
   }, [active, displayProgress, isSceneReady]);
@@ -28,11 +54,11 @@ function LoadingScreen() {
   return (
     <AnimatePresence>
       {!finished && (
-        <m.div
+        <Motion.div
           key="loading-screen"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          transition={{ duration: 0.2, ease: "easeInOut" }}
           style={{
             position: "absolute",
             top: 0,
@@ -50,7 +76,7 @@ function LoadingScreen() {
             pointerEvents: "auto",
           }}
         >
-          <m.h1
+          <Motion.h1
             animate={{ opacity: [1, 0.5, 1] }}
             transition={{ duration: 1.5, repeat: Infinity }}
             style={{
@@ -64,7 +90,7 @@ function LoadingScreen() {
             }}
           >
             {displayProgress === 100 ? uiText.init : uiText.loading}
-          </m.h1>
+          </Motion.h1>
 
           <div
             style={{
@@ -78,10 +104,10 @@ function LoadingScreen() {
               overflow: "hidden",
             }}
           >
-            <m.div
+            <Motion.div
               initial={{ width: 0 }}
               animate={{ width: `${displayProgress}%` }}
-              transition={{ type: "spring", stiffness: 60, damping: 20 }}
+              transition={{ duration: 0 }}
               style={{
                 height: "100%",
                 maxWidth: "100%",
@@ -110,15 +136,18 @@ function LoadingScreen() {
               fontStyle: "italic",
               maxWidth: "80%",
               textAlign: "center",
+              minHeight: "1.2em",
             }}
           >
-            {displayProgress < 100
-              ? uiText.download
-              : !isSceneReady
-                ? uiText.compiling
-                : uiText.launching}
+            {displayProgress < 25
+              ? uiText.init
+              : displayProgress < 70
+                ? uiText.download
+                : displayProgress < 99
+                  ? uiText.compiling
+                  : uiText.launching}
           </p>
-        </m.div>
+        </Motion.div>
       )}
     </AnimatePresence>
   );

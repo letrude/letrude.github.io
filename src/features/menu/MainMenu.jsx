@@ -1,7 +1,7 @@
 import { useRef, useMemo, Suspense, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars, Grid, Float } from "@react-three/drei";
-import { m } from "framer-motion";
+import { m as Motion } from "framer-motion";
 import { Object3D, AdditiveBlending } from "three";
 import useStore from "../../store/useStore";
 import useIsMobile from "../../hooks/useIsMobile";
@@ -112,7 +112,7 @@ const LightBackground = () => {
 };
 
 const MenuButton = ({ onClick, title, desc, style, disabled }) => (
-  <m.button
+  <Motion.button
     whileHover={disabled ? {} : { scale: 1.05, y: -5 }}
     whileTap={disabled ? {} : { scale: 0.95 }}
     onClick={disabled ? null : onClick}
@@ -136,7 +136,7 @@ const MenuButton = ({ onClick, title, desc, style, disabled }) => (
   >
     <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>{title}</span>
     <span style={{ fontSize: "0.9rem", opacity: 0.7 }}>{desc}</span>
-  </m.button>
+  </Motion.button>
 );
 
 function MainMenu() {
@@ -273,7 +273,7 @@ function MainMenu() {
           color: "white",
         }}
       >
-        <m.div
+        <Motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -319,7 +319,7 @@ function MainMenu() {
           >
             {menuText.title}
           </h2>
-        </m.div>
+        </Motion.div>
 
         <div
           style={{
@@ -351,7 +351,7 @@ function MainMenu() {
           />
         </div>
 
-        <m.div
+        <Motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
@@ -364,7 +364,7 @@ function MainMenu() {
           }}
         >
           {menuText.choose}
-        </m.div>
+        </Motion.div>
       </div>
     </div>
   );

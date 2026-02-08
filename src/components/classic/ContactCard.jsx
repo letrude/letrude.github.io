@@ -1,7 +1,7 @@
-import { m } from "framer-motion";
+import { m as Motion } from "framer-motion";
 
 const ContactCard = ({ data, theme }) => (
-  <m.a
+  <Motion.a
     href={data.link}
     target="_blank"
     rel="noopener noreferrer"
@@ -47,7 +47,7 @@ const ContactCard = ({ data, theme }) => (
         {data.value}
       </span>
     </div>
-  </m.a>
+  </Motion.a>
 );
 
 export default ContactCard;

@@ -1,4 +1,4 @@
-import { m } from "framer-motion";
+import { m as Motion } from "framer-motion";
 import useStore from "../../store/useStore";
 
 const ProjectPage = ({ data }) => {
@@ -35,7 +35,7 @@ const ProjectPage = ({ data }) => {
         </h2>
 
         {data.link && (
-          <m.a
+          <Motion.a
             href={data.link}
             target="_blank"
             rel="noopener noreferrer"
@@ -63,7 +63,7 @@ const ProjectPage = ({ data }) => {
             }}
           >
             <span>🔗</span> {uiText.viewCode}
-          </m.a>
+          </Motion.a>
         )}
       </div>
 

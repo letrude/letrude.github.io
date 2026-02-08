@@ -1,4 +1,4 @@
-import { m } from "framer-motion";
+import { m as Motion } from "framer-motion";
 
 const SkillBar = ({ name, level, theme }) => (
   <div style={{ marginBottom: "20px" }}>
@@ -24,7 +24,7 @@ const SkillBar = ({ name, level, theme }) => (
         overflow: "hidden",
       }}
     >
-      <m.div
+      <Motion.div
         initial={{ width: 0 }}
         animate={{ width: `${level}%` }}
         transition={{ duration: 0.8, ease: "easeOut" }}
