@@ -97,6 +97,7 @@ function UI() {
           return;
         }
         enableReadingMode(false);
+        setPageIndex(0);
         return;
       }
 
@@ -116,10 +117,6 @@ function UI() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isReadingMode, changePage, enableReadingMode, showContact]);
-
-  useEffect(() => {
-    if (!isReadingMode) setPageIndex(0);
-  }, [isReadingMode]);
 
   return (
     <div
@@ -618,7 +615,10 @@ function UI() {
                 </span>
 
                 <Motion.button
-                  onClick={() => enableReadingMode(false)}
+                  onClick={() => {
+                    enableReadingMode(false);
+                    setPageIndex(0);
+                  }}
                   whileHover={{
                     scale: 1.2,
                     rotate: 90,

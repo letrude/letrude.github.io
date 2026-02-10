@@ -30,20 +30,22 @@ const InitialLoadingFallback = () => {
   );
 };
 
+const CurrentView = ({ viewMode }) => {
+  switch (viewMode) {
+    case "menu":
+      return <LazyMainMenu />;
+    case "2d":
+      return <LazyClassicPortfolio />;
+    case "3d":
+      return <LazyWorld />;
+    default:
+      return null;
+  }
+};
+
 export default function App() {
   const viewMode = useStore((state) => state.viewMode);
-  const CurrentView = () => {
-    switch (viewMode) {
-      case "menu":
-        return <LazyMainMenu />;
-      case "2d":
-        return <LazyClassicPortfolio />;
-      case "3d":
-        return <LazyWorld />;
-      default:
-        return null;
-    }
-  };
+
   return (
     <div
       className={viewMode === "3d" ? "custom-cursor" : ""}
@@ -57,7 +59,7 @@ export default function App() {
     >
       <LazyMotion features={domAnimation}>
         <Suspense fallback={<InitialLoadingFallback />}>
-          <CurrentView />
+          <CurrentView viewMode={viewMode} />
         </Suspense>
       </LazyMotion>
     </div>
