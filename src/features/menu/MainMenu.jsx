@@ -4,7 +4,6 @@ import { Stars, Grid, Float } from "@react-three/drei";
 import { m as Motion } from "framer-motion";
 import { Object3D, AdditiveBlending } from "three";
 import useStore from "../../store/useStore";
-import useIsMobile from "../../hooks/useIsMobile";
 import ThemeSwitch from "../../components/common/ThemeSwitch";
 import LanguageSwitchButton from "../../components/common/LanguageSwitchButton";
 
@@ -12,7 +11,7 @@ const WarpBackground = ({ color }) => {
   const mesh = useRef();
   const count = 400;
 
-  const particles = useMemo(() => {
+  const [particles] = useState(() => {
     const temp = [];
     for (let i = 0; i < count; i++) {
       temp.push({
@@ -23,7 +22,7 @@ const WarpBackground = ({ color }) => {
       });
     }
     return temp;
-  }, [count]);
+  });
 
   const dummy = useMemo(() => new Object3D(), []);
 
@@ -141,7 +140,6 @@ const MenuButton = ({ onClick, title, desc, style, disabled }) => (
 
 function MainMenu() {
   const { setViewMode, isDarkMode, toggleTheme, menuText } = useStore();
-  const isMobile = useIsMobile();
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
