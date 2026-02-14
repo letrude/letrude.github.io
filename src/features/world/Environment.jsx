@@ -18,13 +18,27 @@ const cleanPath = (path) => (path.startsWith("/") ? path.substring(1) : path);
 const GrassFloor = () => {
   const texture = useTexture(`${BASE_URL}textures/grass.jpg`);
 
-  texture.wrapS = texture.wrapT = RepeatWrapping;
-  texture.repeat.set(30, 30);
+  const grassTexture = useMemo(() => {
+    const t = texture.clone();
+    t.wrapS = t.wrapT = RepeatWrapping;
+    t.repeat.set(30, 30);
+    return t;
+  }, [texture]);
+
+  useEffect(() => {
+    return () => {
+      grassTexture.dispose();
+    };
+  }, [grassTexture]);
 
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.1, 0]} receiveShadow>
       <planeGeometry args={[100, 100]} />
-      <meshStandardMaterial map={texture} color="#90a880" roughness={0.8} />
+      <meshStandardMaterial
+        map={grassTexture}
+        color="#90a880"
+        roughness={0.8}
+      />
     </mesh>
   );
 };
