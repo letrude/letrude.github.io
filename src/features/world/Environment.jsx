@@ -111,7 +111,7 @@ const Zone = ({
     e.stopPropagation();
     setHover(true);
   };
-  const handleOut = (e) => setHover(false);
+  const handleOut = () => setHover(false);
 
   return (
     <group position={position}>
@@ -212,7 +212,9 @@ const Fireflies = () => {
   const count = 100;
   const dummy = useMemo(() => new Object3D(), []);
 
-  const particles = useMemo(() => {
+  const particles = useRef([]);
+
+  useEffect(() => {
     const temp = [];
     for (let i = 0; i < count; i++) {
       const r = Math.sqrt(Math.random()) * 25;
@@ -230,13 +232,13 @@ const Fireflies = () => {
         radiusOffset: Math.random() * 2,
       });
     }
-    return temp;
+    particles.current = temp;
   }, []);
 
   useFrame(() => {
     if (!meshRef.current) return;
 
-    particles.forEach((particle, i) => {
+    particles.current.forEach((particle, i) => {
       particle.t += particle.speed;
 
       const xPos = particle.x + Math.cos(particle.t) * particle.radiusOffset;
