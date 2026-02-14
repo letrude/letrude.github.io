@@ -31,10 +31,10 @@ function UI() {
     volume,
     setVolume,
     uiText,
+    isContactOpen,
+    setContactOpen,
   } = useStore();
   const [pageIndex, setPageIndex] = useState(0);
-
-  const [showContact, setShowContact] = useState(false);
 
   const activeContent = currentZone ? content[currentZone] : null;
   const currentPageData = activeContent ? activeContent.pages[pageIndex] : null;
@@ -92,8 +92,8 @@ function UI() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.code === "Escape") {
-        if (showContact) {
-          setShowContact(false);
+        if (isContactOpen) {
+          setContactOpen(false);
           return;
         }
         enableReadingMode(false);
@@ -101,7 +101,7 @@ function UI() {
         return;
       }
 
-      if (isReadingMode && !showContact) {
+      if (isReadingMode && !isContactOpen) {
         if (
           ["KeyD", "KeyS", "ArrowRight", "ArrowDown", "Space"].includes(e.code)
         )
@@ -116,7 +116,13 @@ function UI() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isReadingMode, changePage, enableReadingMode, showContact]);
+  }, [
+    isReadingMode,
+    changePage,
+    enableReadingMode,
+    isContactOpen,
+    setContactOpen,
+  ]);
 
   return (
     <div
@@ -194,7 +200,7 @@ function UI() {
 
         <Motion.button
           onClick={(e) => {
-            setShowContact(true);
+            setContactOpen(true);
             e.currentTarget.blur();
           }}
           tabIndex="-1"
@@ -305,7 +311,7 @@ function UI() {
       </div>
 
       <AnimatePresence>
-        {showContact && contactData && (
+        {isContactOpen && contactData && (
           <Motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -324,7 +330,7 @@ function UI() {
               zIndex: 200,
               pointerEvents: "auto",
             }}
-            onClick={() => setShowContact(false)}
+            onClick={() => setContactOpen(false)}
           >
             <Motion.div
               initial={{ scale: 0.8, y: 50 }}
@@ -365,7 +371,7 @@ function UI() {
                 </span>
 
                 <Motion.button
-                  onClick={() => setShowContact(false)}
+                  onClick={() => setContactOpen(false)}
                   whileHover={{ scale: 1.2, rotate: 90, color: "#a00" }}
                   whileTap={{ scale: 0.9 }}
                   transition={{ type: "spring", stiffness: 300 }}
@@ -474,7 +480,7 @@ function UI() {
       </AnimatePresence>
 
       <AnimatePresence>
-        {currentZone && !isReadingMode && !showContact && (
+        {currentZone && !isReadingMode && !isContactOpen && (
           <Motion.div
             initial={{ y: 50, opacity: 0, x: "-50%" }}
             animate={{ y: 0, opacity: 1, x: "-50%" }}
@@ -550,7 +556,7 @@ function UI() {
       </AnimatePresence>
 
       <AnimatePresence>
-        {isReadingMode && activeContent && !showContact && (
+        {isReadingMode && activeContent && !isContactOpen && (
           <Motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -796,7 +802,7 @@ function UI() {
         )}
       </AnimatePresence>
 
-      {!isReadingMode && !showContact && (
+      {!isReadingMode && !isContactOpen && (
         <div
           style={{
             position: "absolute",

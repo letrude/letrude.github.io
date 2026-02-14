@@ -34,6 +34,9 @@ const useStore = create((set) => ({
   setZone: (zone) => set({ currentZone: zone }),
   enableReadingMode: (active) => set({ isReadingMode: active }),
   setViewMode: (mode) => set({ viewMode: mode }),
+
+  isContactOpen: false,
+  setContactOpen: (isOpen) => set({ isContactOpen: isOpen }),
 }));
 
 export default useStore;

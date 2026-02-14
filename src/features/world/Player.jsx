@@ -36,6 +36,7 @@ const PlayerController = () => {
   const currentZone = useStore((state) => state.currentZone);
   const isReadingMode = useStore((state) => state.isReadingMode);
   const enableReadingMode = useStore((state) => state.enableReadingMode);
+  const isContactOpen = useStore((state) => state.isContactOpen);
 
   const [currentAction, setCurrentAction] = useState("");
   const [animNames, setAnimNames] = useState({ idle: "", run: "" });
@@ -78,7 +79,8 @@ const PlayerController = () => {
   useEffect(() => {
     const handleDown = (e) => {
       keys.current[e.code] = true;
-      if (e.code === "Space" && currentZone) enableReadingMode(true);
+      if (e.code === "Space" && currentZone && !isContactOpen)
+        enableReadingMode(true);
     };
     const handleUp = (e) => (keys.current[e.code] = false);
     window.addEventListener("keydown", handleDown);
@@ -87,7 +89,7 @@ const PlayerController = () => {
       window.removeEventListener("keydown", handleDown);
       window.removeEventListener("keyup", handleUp);
     };
-  }, [currentZone, enableReadingMode]);
+  }, [currentZone, enableReadingMode, isContactOpen]);
 
   useFrame((state, delta) => {
     if (!playerRef.current) return;
@@ -117,7 +119,7 @@ const PlayerController = () => {
     let moveX = 0;
     let moveZ = 0;
 
-    if (!isReadingMode && startAnimation) {
+    if (!isReadingMode && !isContactOpen && startAnimation) {
       if (keys.current["ArrowUp"] || keys.current["KeyW"]) moveZ -= 1;
       if (keys.current["ArrowDown"] || keys.current["KeyS"]) moveZ += 1;
       if (keys.current["ArrowLeft"] || keys.current["KeyA"]) moveX -= 1;
