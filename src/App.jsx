@@ -8,6 +8,7 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
+import useIsMobile from "./hooks/useIsMobile";
 
 const LazyMainMenu = lazy(() => import("./features/menu/MainMenu"));
 const LazyClassicPortfolio = lazy(
@@ -55,6 +56,16 @@ function ViewModeHandler() {
   return null;
 }
 
+const Protected3DRoute = ({ children }) => {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+};
+
 export default function App() {
   const viewMode = useStore((state) => state.viewMode);
 
@@ -76,7 +87,14 @@ export default function App() {
             <Routes>
               <Route path="/" element={<LazyMainMenu />} />
               <Route path="/classic" element={<LazyClassicPortfolio />} />
-              <Route path="/world" element={<LazyWorld />} />
+              <Route
+                path="/world"
+                element={
+                  <Protected3DRoute>
+                    <LazyWorld />
+                  </Protected3DRoute>
+                }
+              />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
