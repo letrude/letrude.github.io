@@ -1,10 +1,17 @@
 import { create } from "zustand";
 import translations from "../data/content";
 
+const getInitialViewMode = () => {
+  const path = window.location.pathname;
+  if (path === "/world") return "3d";
+  if (path === "/classic") return "2d";
+  return "menu";
+};
+
 const useStore = create((set) => ({
   currentZone: null,
   isReadingMode: false,
-  viewMode: "menu",
+  viewMode: getInitialViewMode(),
 
   isDarkMode: true,
   toggleTheme: () => set((state) => ({ isDarkMode: !state.isDarkMode })),

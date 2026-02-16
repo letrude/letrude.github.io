@@ -1,7 +1,14 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { LazyMotion, domAnimation } from "framer-motion";
 import useStore from "./store/useStore";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
+
 const LazyMainMenu = lazy(() => import("./features/menu/MainMenu"));
 const LazyClassicPortfolio = lazy(
   () => import("./features/classic/ClassicPortfolio"),
@@ -31,6 +38,23 @@ const InitialLoadingFallback = () => {
   );
 };
 
+function ViewModeHandler() {
+  const location = useLocation();
+  const setViewMode = useStore((state) => state.setViewMode);
+
+  useEffect(() => {
+    if (location.pathname === "/world") {
+      setViewMode("3d");
+    } else if (location.pathname === "/classic") {
+      setViewMode("2d");
+    } else {
+      setViewMode("menu");
+    }
+  }, [location.pathname, setViewMode]);
+
+  return null;
+}
+
 export default function App() {
   const viewMode = useStore((state) => state.viewMode);
 
@@ -47,6 +71,7 @@ export default function App() {
     >
       <LazyMotion features={domAnimation}>
         <BrowserRouter>
+          <ViewModeHandler />
           <Suspense fallback={<InitialLoadingFallback />}>
             <Routes>
               <Route path="/" element={<LazyMainMenu />} />
