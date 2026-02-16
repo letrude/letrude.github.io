@@ -6,6 +6,7 @@ import { Object3D, AdditiveBlending } from "three";
 import useStore from "../../store/useStore";
 import ThemeSwitch from "../../components/common/ThemeSwitch";
 import LanguageSwitchButton from "../../components/common/LanguageSwitchButton";
+import { useNavigate } from "react-router-dom";
 
 const WarpBackground = ({ color }) => {
   const mesh = useRef();
@@ -141,6 +142,7 @@ const MenuButton = ({ onClick, title, desc, style, disabled }) => (
 function MainMenu() {
   const { setViewMode, isDarkMode, toggleTheme, menuText } = useStore();
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkDevice = () => {
@@ -330,7 +332,10 @@ function MainMenu() {
         >
           <MenuButton
             onClick={() => {
-              if (!shouldDisable3D) setViewMode("3d");
+              if (!shouldDisable3D) {
+                setViewMode("3d");
+                navigate("/world");
+              }
             }}
             title={menuText.enter3d}
             desc={shouldDisable3D ? menuText.keyboardReq : menuText.enter3dDesc}
@@ -338,7 +343,10 @@ function MainMenu() {
             style={button3DStyle}
           />
           <MenuButton
-            onClick={() => setViewMode("2d")}
+            onClick={() => {
+              setViewMode("2d");
+              navigate("/classic");
+            }}
             title={menuText.enter2d}
             desc={menuText.enter2dDesc}
             style={{

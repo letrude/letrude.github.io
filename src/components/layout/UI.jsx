@@ -6,6 +6,7 @@ import KeyCap from "../common/KeyCap";
 import TextPage from "../books/TextPage";
 import ProjectPage from "../books/ProjectPage";
 import SkillsPage from "../books/SkillsPage";
+import { useNavigate } from "react-router-dom";
 
 const BASE_URL = import.meta.env.BASE_URL;
 
@@ -39,6 +40,7 @@ function UI() {
   const activeContent = currentZone ? content[currentZone] : null;
   const currentPageData = activeContent ? activeContent.pages[pageIndex] : null;
   const totalPages = activeContent ? activeContent.pages.length : 0;
+  const navigate = useNavigate();
 
   const pixelFont = {
     fontFamily: "'Courier New', Courier, monospace",
@@ -195,6 +197,7 @@ function UI() {
               accentColor: "#eecfa1",
             }}
             onKeyDown={(e) => e.preventDefault()}
+            aria-label="Volume"
           />
         </div>
 
@@ -260,7 +263,10 @@ function UI() {
             backgroundColor: "rgba(255, 255, 255, 0.2)",
           }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => setViewMode("2d")}
+          onClick={() => {
+            setViewMode("2d");
+            navigate("/classic");
+          }}
           tabIndex="-1"
           style={{
             background: "rgba(0, 0, 0, 0.5)",
@@ -287,7 +293,10 @@ function UI() {
             backgroundColor: "rgba(255, 255, 255, 0.2)",
           }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => setViewMode("menu")}
+          onClick={() => {
+            setViewMode("menu");
+            navigate("/");
+          }}
           tabIndex="-1"
           style={{
             background: "rgba(0, 0, 0, 0.5)",

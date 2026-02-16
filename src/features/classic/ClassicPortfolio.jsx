@@ -9,6 +9,7 @@ import ProjectCard from "../../components/classic/ProjectCard";
 import SkillBar from "../../components/classic/SkillBar";
 import ContactCard from "../../components/classic/ContactCard";
 import useIsMobile from "../../hooks/useIsMobile";
+import { useNavigate } from "react-router-dom";
 
 const StaticGrid = () => (
   <group>
@@ -36,6 +37,7 @@ function ClassicPortfolio() {
   const scrollContainerRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   const [isTouch, setIsTouch] = useState(false);
   useEffect(() => {
@@ -166,7 +168,10 @@ function ClassicPortfolio() {
             <LanguageSwitchButton style={{ position: "static" }} />
 
             <Motion.button
-              onClick={() => setViewMode("menu")}
+              onClick={() => {
+                setViewMode("menu");
+                navigate("/");
+              }}
               whileHover={{
                 scale: 1.1,
                 backgroundColor: isDarkMode
@@ -351,7 +356,10 @@ function ClassicPortfolio() {
 
           <Motion.button
             onClick={() => {
-              if (!isTouch) setViewMode("3d");
+              if (!isTouch) {
+                setViewMode("3d");
+                navigate("/world");
+              }
             }}
             whileHover={
               !isTouch
@@ -447,7 +455,10 @@ function ClassicPortfolio() {
             ))}
 
             <Motion.button
-              onClick={() => setViewMode("menu")}
+              onClick={() => {
+                setViewMode("menu");
+                navigate("/");
+              }}
               whileTap={{ scale: 0.9 }}
               style={{
                 marginTop: "20px",

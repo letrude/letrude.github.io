@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
 import { LazyMotion, domAnimation } from "framer-motion";
 import useStore from "./store/useStore";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 const LazyMainMenu = lazy(() => import("./features/menu/MainMenu"));
 const LazyClassicPortfolio = lazy(
   () => import("./features/classic/ClassicPortfolio"),
@@ -30,19 +31,6 @@ const InitialLoadingFallback = () => {
   );
 };
 
-const CurrentView = ({ viewMode }) => {
-  switch (viewMode) {
-    case "menu":
-      return <LazyMainMenu />;
-    case "2d":
-      return <LazyClassicPortfolio />;
-    case "3d":
-      return <LazyWorld />;
-    default:
-      return null;
-  }
-};
-
 export default function App() {
   const viewMode = useStore((state) => state.viewMode);
 
@@ -58,9 +46,16 @@ export default function App() {
       }}
     >
       <LazyMotion features={domAnimation}>
-        <Suspense fallback={<InitialLoadingFallback />}>
-          <CurrentView viewMode={viewMode} />
-        </Suspense>
+        <BrowserRouter>
+          <Suspense fallback={<InitialLoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<LazyMainMenu />} />
+              <Route path="/classic" element={<LazyClassicPortfolio />} />
+              <Route path="/world" element={<LazyWorld />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
       </LazyMotion>
     </div>
   );
