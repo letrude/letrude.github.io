@@ -9,6 +9,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import useIsMobile from "./hooks/useIsMobile";
+import useIsTouchDevice from "./hooks/useIsTouchDevice";
 
 const LazyMainMenu = lazy(() => import("./features/menu/MainMenu"));
 const LazyClassicPortfolio = lazy(
@@ -58,8 +59,9 @@ function ViewModeHandler() {
 
 const Protected3DRoute = ({ children }) => {
   const isMobile = useIsMobile();
+  const isTouchDevice = useIsTouchDevice();
 
-  if (isMobile) {
+  if (isMobile || isTouchDevice) {
     return <Navigate to="/" replace />;
   }
 

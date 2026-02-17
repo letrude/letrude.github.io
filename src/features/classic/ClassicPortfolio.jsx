@@ -1,4 +1,4 @@
-import { useState, Suspense, useRef, useEffect } from "react";
+import { useState, Suspense, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Stars, Grid } from "@react-three/drei";
 import useStore from "../../store/useStore";
@@ -10,6 +10,7 @@ import SkillBar from "../../components/classic/SkillBar";
 import ContactCard from "../../components/classic/ContactCard";
 import useIsMobile from "../../hooks/useIsMobile";
 import { useNavigate } from "react-router-dom";
+import useIsTouchDevice from "../../hooks/useIsTouchDevice";
 
 const StaticGrid = () => (
   <group>
@@ -39,16 +40,7 @@ function ClassicPortfolio() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
-  const [isTouch, setIsTouch] = useState(false);
-  useEffect(() => {
-    const checkTouch = () => {
-      const touch =
-        window.matchMedia("(pointer: coarse)").matches ||
-        /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-      setIsTouch(touch);
-    };
-    checkTouch();
-  }, []);
+  const isTouch = useIsTouchDevice();
 
   const theme = {
     bg: isDarkMode ? "#050505" : "#f0f4f8",

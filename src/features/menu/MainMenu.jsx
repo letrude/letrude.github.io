@@ -1,4 +1,4 @@
-import { useRef, useMemo, Suspense, useState, useEffect } from "react";
+import { useRef, useMemo, Suspense, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars, Grid, Float } from "@react-three/drei";
 import { m as Motion } from "framer-motion";
@@ -7,6 +7,7 @@ import useStore from "../../store/useStore";
 import ThemeSwitch from "../../components/common/ThemeSwitch";
 import LanguageSwitchButton from "../../components/common/LanguageSwitchButton";
 import { useNavigate } from "react-router-dom";
+import useIsTouchDevice from "../../hooks/useIsTouchDevice";
 
 const WarpBackground = ({ color }) => {
   const mesh = useRef();
@@ -141,22 +142,11 @@ const MenuButton = ({ onClick, title, desc, style, disabled }) => (
 
 function MainMenu() {
   const { setViewMode, isDarkMode, toggleTheme, menuText } = useStore();
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const checkDevice = () => {
-      const hasTouchScreen =
-        window.matchMedia("(pointer: coarse)").matches ||
-        window.matchMedia("(hover: none)").matches;
-      setIsTouchDevice(hasTouchScreen || window.innerWidth < 1024);
-    };
-    checkDevice();
-    window.addEventListener("resize", checkDevice);
-    return () => window.removeEventListener("resize", checkDevice);
-  }, []);
+  const isTouchDevice = useIsTouchDevice();
 
-  const shouldDisable3D = isTouchDevice || window.innerWidth < 900;
+  const shouldDisable3D = isTouchDevice;
 
   const theme = {
     bg: isDarkMode ? "#050505" : "#eef2ff",

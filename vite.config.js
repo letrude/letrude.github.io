@@ -22,6 +22,7 @@ export default defineConfig({
           }
         } catch (e) {
           console.error("❌ Erreur lors de la génération de 404.html:", e);
+          throw e;
         }
       },
     },
