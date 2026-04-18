@@ -41,7 +41,7 @@ const translations = {
           {
             type: "text",
             content:
-              "👨‍💻 Qui suis-je ?\n\nJe m'appelle Ange GRIMAUD, je suis actuellement étudiant en première année de BUT informatique à Aubière (63) dans le but de devenir informaticien.\n\nJ'ai pu acquérir des compétences dans le développement de sites web, la gestion de bases de données ainsi que dans la programmation d'algorithmes.",
+              "👨‍💻 Qui suis-je ?\n\nJe m'appelle Ange GRIMAUD, je suis actuellement étudiant en deuxième année de BUT informatique à Aubière (63) dans le but de devenir informaticien.\n\nJ'ai pu acquérir des compétences dans le développement de sites web, la gestion de bases de données ainsi que dans la programmation d'algorithmes.",
           },
           {
             type: "text",
@@ -264,7 +264,7 @@ const translations = {
           {
             type: "text",
             content:
-              "👨‍💻 Who am I?\n\nMy name is Ange GRIMAUD, I am currently a first-year student in a University Bachelor of Technology (BUT) in Computer Science in Aubière (63), aiming to become a software engineer.\n\nI have acquired skills in web development, database management, and algorithm programming.",
+              "👨‍💻 Who am I?\n\nMy name is Ange GRIMAUD, I am currently a second-year student in a University Bachelor of Technology (BUT) in Computer Science in Aubière (63), aiming to become a software engineer.\n\nI have acquired skills in web development, database management, and algorithm programming.",
           },
           {
             type: "text",

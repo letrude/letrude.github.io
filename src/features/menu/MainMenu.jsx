@@ -176,21 +176,21 @@ function MainMenu() {
 
   const button3DStyle = shouldDisable3D
     ? {
-        background: isDarkMode ? "#450a0a" : "#fee2e2",
-        color: isDarkMode ? "#fca5a5" : "#991b1b",
-        border: "2px solid #ef4444",
-        boxShadow: "none",
-        opacity: 1,
-      }
+      background: isDarkMode ? "#450a0a" : "#fee2e2",
+      color: isDarkMode ? "#fca5a5" : "#991b1b",
+      border: "2px solid #ef4444",
+      boxShadow: "none",
+      opacity: 1,
+    }
     : {
-        background: theme.btnPrimaryBg,
-        color: theme.btnPrimaryText,
-        border: "none",
-        boxShadow: isDarkMode
-          ? "0 0 20px rgba(255,255,255,0.3)"
-          : "0 10px 25px rgba(37,99,235,0.3)",
-        opacity: 1,
-      };
+      background: theme.btnPrimaryBg,
+      color: theme.btnPrimaryText,
+      border: "none",
+      boxShadow: isDarkMode
+        ? "0 0 20px rgba(255,255,255,0.3)"
+        : "0 10px 25px rgba(37,99,235,0.3)",
+      opacity: 1,
+    };
 
   return (
     <div
@@ -282,7 +282,7 @@ function MainMenu() {
               fontWeight: "bold",
             }}
           >
-            ✨ Portfolio 2025
+            ✨ Portfolio 2026
           </div>
 
           <h1
