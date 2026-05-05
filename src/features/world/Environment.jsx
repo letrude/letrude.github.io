@@ -10,6 +10,7 @@ import {
 } from "three";
 import { SkeletonUtils } from "three-stdlib";
 import useStore from "../../store/useStore";
+import { RigidBody, CuboidCollider } from "@react-three/rapier";
 
 const BASE_URL = import.meta.env.BASE_URL;
 
@@ -32,14 +33,17 @@ const GrassFloor = () => {
   }, [grassTexture]);
 
   return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.1, 0]} receiveShadow>
-      <planeGeometry args={[100, 100]} />
-      <meshStandardMaterial
-        map={grassTexture}
-        color="#90a880"
-        roughness={0.8}
-      />
-    </mesh>
+    <RigidBody type="fixed">
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.1, 0]} receiveShadow>
+        <planeGeometry args={[100, 100]} />
+        <meshStandardMaterial
+          map={grassTexture}
+          color="#90a880"
+          roughness={0.8}
+        />
+      </mesh>
+      <CuboidCollider args={[50, 0.5, 50]} position={[0, -0.6, 0]} />
+    </RigidBody>
   );
 };
 
@@ -88,11 +92,15 @@ const Zone = ({
     };
   }, [hovered]);
 
+  const playerWorldPos = useMemo(() => new Vector3(), []);
+  const zonePos = useMemo(() => new Vector3(...position), [position]);
+
   useFrame((state) => {
     if (isReadingMode) return;
     const player = state.scene.getObjectByName("Player");
     if (player) {
-      const dist = player.position.distanceTo(new Vector3(...position));
+      player.getWorldPosition(playerWorldPos);
+      const dist = playerWorldPos.distanceTo(zonePos);
       if (dist < 4 && currentZone !== name) setZone(name);
       else if (currentZone === name && dist > 4.1) setZone(null);
     }
@@ -151,12 +159,16 @@ const Zone = ({
         </mesh>
       )}
 
-      <group rotation={[0, rotationY, 0]} scale={scale}>
-        <primitive object={building} />
-      </group>
+      <RigidBody type="fixed" colliders="trimesh">
+        <group rotation={[0, rotationY, 0]} scale={scale}>
+          <primitive object={building} />
+        </group>
+      </RigidBody>
 
       <group position={[signX, 0, signZ]} rotation={[0, signRot, 0]}>
-        <primitive object={sign} scale={1} />
+        <RigidBody type="fixed" colliders="hull">
+          <primitive object={sign} scale={1} />
+        </RigidBody>
         <Float speed={4} rotationIntensity={0.1} floatIntensity={0.1}>
           <Text
             font={`${BASE_URL}${cleanPath("/fonts/PersonalFont.ttf")}`}
@@ -215,9 +227,11 @@ const Decoration = ({
     });
   }, [clone]);
   return (
-    <group position={position} rotation={rotation} scale={scale}>
-      <primitive object={clone} />
-    </group>
+    <RigidBody type="fixed" colliders="trimesh" position={position} rotation={rotation}>
+      <group scale={scale}>
+        <primitive object={clone} />
+      </group>
+    </RigidBody>
   );
 };
 
@@ -271,7 +285,7 @@ const Fireflies = () => {
   });
 
   return (
-    <instancedMesh ref={meshRef} args={[null, null, count]}>
+    <instancedMesh ref={meshRef} args={[null, null, count]} frustumCulled={false}>
       <sphereGeometry args={[0.08, 6, 6]} />
       <meshBasicMaterial
         color={[3, 3, 0]}
@@ -303,26 +317,46 @@ const MapBoundary = () => {
   });
 
   return (
-    <group position={[0, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-      <mesh ref={ringRef}>
-        <ringGeometry args={[radius - 0.4, radius, 64]} />
-        <meshBasicMaterial
-          color="#aaddff"
-          transparent
-          opacity={0.3}
-          side={DoubleSide}
-        />
-      </mesh>
+    <group>
+      <group position={[0, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh ref={ringRef}>
+          <ringGeometry args={[radius - 0.4, radius, 64]} />
+          <meshBasicMaterial
+            color="#aaddff"
+            transparent
+            opacity={0.3}
+            side={DoubleSide}
+          />
+        </mesh>
 
-      <mesh position={[0, 0, 0.01]}>
-        <ringGeometry args={[radius - 0.1, radius, 64]} />
-        <meshBasicMaterial color="#ffffff" transparent opacity={0.15} />
-      </mesh>
+        <mesh position={[0, 0, 0.01]}>
+          <ringGeometry args={[radius - 0.1, radius, 64]} />
+          <meshBasicMaterial color="#ffffff" transparent opacity={0.15} />
+        </mesh>
 
-      <mesh position={[0, 0, -0.01]}>
-        <ringGeometry args={[radius, outerRadius, 64]} />
-        <meshBasicMaterial color="#051020" opacity={0.5} transparent />
-      </mesh>
+        <mesh position={[0, 0, -0.01]}>
+          <ringGeometry args={[radius, outerRadius, 64]} />
+          <meshBasicMaterial color="#051020" opacity={0.5} transparent />
+        </mesh>
+      </group>
+      <RigidBody type="fixed">
+        {Array.from({ length: 32 }).map((_, i) => {
+          const numSegments = 32;
+          const angle = (i / numSegments) * Math.PI * 2;
+          const distance = radius + 0.5; // Décalage pour que le bord interne touche le rayon 17
+          const x = Math.cos(angle) * distance;
+          const z = Math.sin(angle) * distance;
+          const segmentLength = (2 * Math.PI * radius) / numSegments;
+          return (
+            <CuboidCollider
+              key={i}
+              args={[0.5, 5, segmentLength / 2 + 0.1]} // args = [halfWidth, halfHeight, halfLength]
+              position={[x, 5, z]}
+              rotation={[0, -angle, 0]}
+            />
+          );
+        })}
+      </RigidBody>
     </group>
   );
 };

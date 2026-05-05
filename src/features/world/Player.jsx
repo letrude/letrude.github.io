@@ -4,11 +4,13 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import { Vector3, Object3D, MathUtils } from "three";
 import { SkeletonUtils } from "three-stdlib";
 import useStore from "../../store/useStore";
+import { RigidBody, CapsuleCollider } from "@react-three/rapier";
 
 const BASE_URL = import.meta.env.BASE_URL;
 
 const PlayerController = () => {
   const playerRef = useRef();
+  const rb = useRef();
   const { camera } = useThree();
   const keys = useRef({});
   const speed = 7.0;
@@ -79,7 +81,7 @@ const PlayerController = () => {
   useEffect(() => {
     const handleDown = (e) => {
       keys.current[e.code] = true;
-      if (e.code === "Space" && currentZone && !isContactOpen)
+      if (e.code === "Enter" && currentZone && !isContactOpen)
         enableReadingMode(true);
     };
     const handleUp = (e) => (keys.current[e.code] = false);
@@ -92,7 +94,7 @@ const PlayerController = () => {
   }, [currentZone, enableReadingMode, isContactOpen]);
 
   useFrame((state, delta) => {
-    if (!playerRef.current) return;
+    if (!playerRef.current || !rb.current) return;
 
     const safeDelta = Math.min(delta, 0.1);
 
@@ -114,7 +116,7 @@ const PlayerController = () => {
     }
 
     playerRef.current.scale.setScalar(spawnState.current.scale);
-    playerRef.current.position.y = spawnState.current.y;
+    playerRef.current.position.y = spawnState.current.y - 0.9;
 
     let moveX = 0;
     let moveZ = 0;
@@ -127,21 +129,20 @@ const PlayerController = () => {
     }
 
     const isMoving = moveX !== 0 || moveZ !== 0;
+    const currentVel = rb.current.linvel();
 
     if (isMoving) {
       const direction = new Vector3(moveX, 0, moveZ).normalize();
-      let nextX = playerRef.current.position.x + direction.x * speed * delta;
-      let nextZ = playerRef.current.position.z + direction.z * speed * delta;
-      const distance = Math.sqrt(nextX * nextX + nextZ * nextZ);
-      if (distance > mapRadius) {
-        const ratio = mapRadius / distance;
-        nextX *= ratio;
-        nextZ *= ratio;
-      }
-      playerRef.current.position.x = nextX;
-      playerRef.current.position.z = nextZ;
+      rb.current.setLinvel({ x: direction.x * speed, y: currentVel.y, z: direction.z * speed }, true);
       const targetRotation = Math.atan2(direction.x, direction.z);
       playerRef.current.rotation.y = targetRotation;
+    } else {
+      rb.current.setLinvel({ x: 0, y: currentVel.y, z: 0 }, true);
+    }
+
+    if (keys.current["Space"] && !isReadingMode && !isContactOpen && Math.abs(currentVel.y) < 0.1) {
+      rb.current.setLinvel({ x: rb.current.linvel().x, y: 8.5, z: rb.current.linvel().z }, true);
+      keys.current["Space"] = false;
     }
 
     const targetAction = isMoving ? animNames.run : animNames.idle;
@@ -158,6 +159,8 @@ const PlayerController = () => {
     const targetPos = new Vector3();
     const targetLookAt = new Vector3();
     let targetZoom = 40;
+
+    const playerPos = rb.current.translation();
 
     if (isReadingMode && currentZone) {
       let zoneX = 0,
@@ -191,15 +194,15 @@ const PlayerController = () => {
       targetZoom = 60;
     } else {
       targetPos.set(
-        playerRef.current.position.x,
+        playerPos.x,
         20,
-        playerRef.current.position.z + 30,
+        playerPos.z + 30,
       );
 
       targetLookAt.set(
-        playerRef.current.position.x,
+        playerPos.x,
         0,
-        playerRef.current.position.z,
+        playerPos.z,
       );
 
       targetZoom = 40;
@@ -214,19 +217,22 @@ const PlayerController = () => {
 
   return (
     <>
-      <group ref={playerRef} name="Player">
-        <primitive object={clone} />
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.05, 0]}>
-          <circleGeometry args={[0.4, 16]} />
-          <meshBasicMaterial color="black" opacity={0.2} transparent />
-        </mesh>
-      </group>
-      <Dust playerRef={playerRef} keys={keys} />
+      <RigidBody ref={rb} type="dynamic" enabledRotations={[false, false, false]} colliders={false} position={[0, 15, 0]} gravityScale={2.5}>
+        <CapsuleCollider args={[0.5, 0.6]} position={[0, 0, 0]} />
+        <group ref={playerRef} name="Player">
+          <primitive object={clone} />
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.05, 0]}>
+            <circleGeometry args={[0.6, 16]} />
+            <meshBasicMaterial color="black" opacity={0.2} transparent />
+          </mesh>
+        </group>
+      </RigidBody>
+      <Dust rb={rb} keys={keys} />
     </>
   );
 };
 
-const Dust = ({ playerRef, keys }) => {
+const Dust = ({ rb, keys }) => {
   const meshRef = useRef();
   const dummy = useMemo(() => new Object3D(), []);
 
@@ -247,7 +253,7 @@ const Dust = ({ playerRef, keys }) => {
   const spawnTimer = useRef(0);
 
   useFrame((state, delta) => {
-    if (!playerRef.current || !meshRef.current) return;
+    if (!rb.current || !meshRef.current) return;
     const time = state.clock.getElapsedTime();
 
     const isMoving =
@@ -267,13 +273,13 @@ const Dust = ({ playerRef, keys }) => {
       const deadParticle = particles.find((p) => !p.active);
 
       if (deadParticle) {
-        const playerPos = playerRef.current.position;
+        const playerPos = rb.current.translation();
 
         deadParticle.active = true;
         deadParticle.life = 1.0;
         deadParticle.scale = 1.0;
         deadParticle.x = playerPos.x + (Math.random() - 0.5) * 0.5;
-        deadParticle.y = 0.1;
+        deadParticle.y = playerPos.y - 0.9 + 0.1;
         deadParticle.z = playerPos.z + (Math.random() - 0.5) * 0.5;
         deadParticle.vx = (Math.random() - 0.5) * 0.5;
         deadParticle.vz = (Math.random() - 0.5) * 0.5;

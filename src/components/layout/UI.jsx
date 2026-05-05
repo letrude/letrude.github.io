@@ -558,7 +558,7 @@ function UI() {
               }}
             >
               <span>{uiText.enter}</span>
-              <KeyCap label={uiText.space} width="60px" />
+              <KeyCap label={uiText.enterKey} width="60px" />
             </div>
           </Motion.div>
         )}
@@ -838,6 +838,19 @@ function UI() {
               <KeyCap label="D" />
             </div>
             <span>{uiText.move}</span>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              marginBottom: "8px",
+            }}
+          >
+            <div style={{ display: "flex", gap: "2px" }}>
+              <KeyCap label={uiText.space} width="70px" />
+            </div>
+            <span>{uiText.jump}</span>
           </div>
         </div>
       )}

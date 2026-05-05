@@ -5,6 +5,7 @@ import useStore from "../../store/useStore";
 import Environment from "./Environment";
 import PlayerController from "./Player";
 import Effects from "./Effects";
+import { Physics } from "@react-three/rapier";
 
 const SceneWarmup = () => {
   const { gl, scene, camera } = useThree();
@@ -49,8 +50,10 @@ export default function GameScene() {
       >
         <orthographicCamera attach="shadow-camera" args={[-30, 30, 30, -30]} />
       </directionalLight>
-      <Environment />
-      <PlayerController />
+      <Physics>
+        <Environment />
+        <PlayerController />
+      </Physics>
       <Effects />
     </>
   );
