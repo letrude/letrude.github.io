@@ -180,7 +180,7 @@ const translations = {
           {
             type: "text",
             content:
-              "🧠 Logique & Stratégie\n\n🎲 Rubik's Cube : Mon record de 56s est le résultat d'un entraînement méthodique. Ce qui me passionne, c'est la reconnaissance de motifs (patterns) pour appliquer instantanément l'algorithme le plus efficient, une démarche purement logique.\n\n♟️ Échecs : Un exercice complet d'anticipation. Chaque partie m'oblige à calculer plusieurs coups à l'avance, à évaluer les risques et à adapter ma stratégie en temps réel. C'est l'entraînement idéal pour la prise de décision complexe.",
+              "🧠 Logique & Stratégie\n\n🎲 Rubik's Cube : Mon record de 53s est le résultat d'un entraînement méthodique. Ce qui me passionne, c'est la reconnaissance de motifs (patterns) pour appliquer instantanément l'algorithme le plus efficient, une démarche purement logique.\n\n♟️ Échecs : Un exercice complet d'anticipation. Chaque partie m'oblige à calculer plusieurs coups à l'avance, à évaluer les risques et à adapter ma stratégie en temps réel. C'est l'entraînement idéal pour la prise de décision complexe.",
           },
           {
             type: "text",
@@ -403,7 +403,7 @@ const translations = {
           {
             type: "text",
             content:
-              "🧠 Logic & Strategy\n\n🎲 Rubik's Cube: My record of 56s is the result of methodical training. What fascinates me is pattern recognition to instantly apply the most efficient algorithm, a purely logical approach.\n\n♟️ Chess: A complete exercise in anticipation. Each game forces me to calculate several moves ahead, evaluate risks, and adapt my strategy in real-time. It's the ideal training for complex decision-making.",
+              "🧠 Logic & Strategy\n\n🎲 Rubik's Cube: My record of 53s is the result of methodical training. What fascinates me is pattern recognition to instantly apply the most efficient algorithm, a purely logical approach.\n\n♟️ Chess: A complete exercise in anticipation. Each game forces me to calculate several moves ahead, evaluate risks, and adapt my strategy in real-time. It's the ideal training for complex decision-making.",
           },
           {
             type: "text",
